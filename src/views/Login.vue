@@ -51,7 +51,7 @@
 
 <script>
     import ApiAuthentication from "../api/Authentication/Authentication";
-    import store from '../store';
+    import Router from "../router";
 
 
     export default {
@@ -128,9 +128,7 @@
                                     self.mustSpin(false);
                                     self.disableSubmit(false);
                                     self.$store.dispatch("login", {jwt: response.data.token});
-                                    // TODO => redirect to home page
-                                    // TODO => trouver un moyen de refresh un jwt si il est expiré
-                                    // TODO => ce token sera a mettre dans toutes les requêtes par la suite Authorization Bearer JWTici
+                                    Router.push({ path: '/', query: {}})
                                 })
                                 .catch((err) => {
                                     console.log("ERROR ", err);

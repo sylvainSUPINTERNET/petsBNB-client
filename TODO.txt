@@ -1,0 +1,3 @@
+// check auth on every routes (management expiration JWT)
+
+https://router.vuejs.org/guide/advanced/navigation-guards.html#global-before-guards

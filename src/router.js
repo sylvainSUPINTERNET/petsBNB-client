@@ -3,12 +3,23 @@ import Router from 'vue-router'
 import Home from './views/Home.vue'
 import Register from "./views/Register";
 import Login from "./views/Login";
+import store from './store'
 
 import {getTranslation} from "../src/i18n/translation";
+
 let lang = "FR";
 let translation = getTranslation(lang);
 
 Vue.use(Router);
+
+
+let isAuthenticated = (to, from, next) => {
+    if (store.getters.userToken) {
+        next();
+    } else {
+        next('/login')
+    }
+};
 
 export default new Router({
     mode: 'history',
@@ -20,7 +31,8 @@ export default new Router({
             component: Home,
             props: {
                 translation: translation
-            }
+            },
+            beforeEnter: isAuthenticated
         },
         {
             path: '/login',
