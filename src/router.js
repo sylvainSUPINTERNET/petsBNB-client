@@ -10,9 +10,11 @@ import {getTranslation} from "../src/i18n/translation";
 let lang = "FR";
 let translation = getTranslation(lang);
 
+
+
 Vue.use(Router);
 
-
+// middleware
 let isAuthenticated = (to, from, next) => {
     if (store.getters.userToken) {
         next();

@@ -1,14 +1,23 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/register">Register</router-link> |
-      <router-link to="/login">Login</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
+    <MenuNav></MenuNav>
   </div>
 </template>
+
+<script>
+
+  import MenuNav from "./views/MenuNav";
+  export default {
+    name: 'App',
+    beforeCreate(){
+
+    },
+    components: {
+      MenuNav
+    }
+  }
+</script>
+
 
 <style>
 #app {
