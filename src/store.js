@@ -17,12 +17,15 @@ const type = {
     }
 };
 
+import appConfiguration from '../appConfig';
+
 export default new Vuex.Store({
     state: {
         userToken: ""
     },
     mutations: {
         loginSetJwt(state, jwt) {
+            localStorage.setItem(btoa(appConfiguration.localStorageJwtKeyName), btoa(`${jwt.jwt + appConfiguration.secret_localStorage_jwt}`));
             state.userToken = jwt;
         }
     },

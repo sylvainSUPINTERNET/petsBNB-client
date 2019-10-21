@@ -12,12 +12,37 @@ let translation = getTranslation(lang);
 
 
 
+import appConfiguration from '../appConfig';
+import {apiConfiguration} from './api/config/apiConfig';
+
+
+
+
+
+const jwtManager = require('jsonwebtoken');
+
 Vue.use(Router);
 
 // middleware
 let isAuthenticated = (to, from, next) => {
-    if (store.getters.userToken) {
-        next();
+    if (store.getters.userToken || localStorage.getItem(btoa(appConfiguration.localStorageJwtKeyName))) {
+        let jwtToken = atob(localStorage.getItem(btoa(appConfiguration.localStorageJwtKeyName))).toString().replace(appConfiguration.secret_localStorage_jwt,'');
+
+        try  {
+            let decoded = jwtManager
+                .verify(jwtToken, apiConfiguration.jwtSecret);
+
+            store.dispatch("login", {jwt: jwtToken}); // set in store if user is logged (localStorage OR userToken (not refresh since login) )
+
+            next();
+        } catch (e) {
+            // TODO -> session expired modal
+            console.log(e);
+            console.log("EXCEPTION");
+            console.log("TODO -> ", "modal with exception message");
+            localStorage.removeItem(btoa(appConfiguration.localStorageJwtKeyName));
+            next('/login')
+        }
     } else {
         next('/login')
     }
@@ -58,6 +83,7 @@ export default new Router({
             props: {
                 translation: translation
             },
+            beforeEnter: isAuthenticated,
             // route level code-splitting
             // this generates a separate chunk (about.[hash].js) for this route
             // which is lazy-loaded when the route is visited.

@@ -13,7 +13,7 @@ import HelloWorld from '@/components/HelloWorld.vue'
 export default {
   name: 'home',
   beforeCreate(){
-    //console.log(this.$store.getters.userToken);
+    console.log("TOKEN from store -> ", this.$store.getters.userToken);
   },
   components: {
     HelloWorld

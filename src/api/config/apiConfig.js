@@ -5,12 +5,15 @@
  * API global configuration
  * @type {{protocol: string, port: number, prefix: string, host: string}}
  */
-let apiConfiguration = {
+export let apiConfiguration = {
     protocol: "http",
     host: "localhost",
     prefix: "/v1",
-    port: 4999
+    port: 4999,
+    jwtSecret: 'n2r5u8xkAmDxGeKaPdSgVkYp3s6v9ysBdEvHrMbQeThWmZq4t7wezZCxFFJANcRf'
 };
+
+
 
 
 /**
